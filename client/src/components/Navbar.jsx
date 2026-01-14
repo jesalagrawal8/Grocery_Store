@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect , useContext } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
@@ -6,9 +6,21 @@ import { assets } from "../assets/assets";
 const Navbar = () => {
   const [open, setOpen] = React.useState(false);
 
-  const { user, setUser,navigate, setShowUserLogin, cartCount } = useContext(AppContext);
+  const {
+    user,
+    setUser,
+    navigate,
+    setShowUserLogin,
+    cartCount,
+    searchQuery,
+    setSearchQuery,
+  } = useContext(AppContext);
 
-  
+  useEffect(() => {
+    if (searchQuery.length > 0) {
+      navigate("/products");
+    }
+  }, [searchQuery]);
 
   return (
     <nav className="flex items-center justify-between px-6 md:px-16 lg:px-24 xl:px-32 py-4 border-b border-gray-300 bg-white relative transition-all">
@@ -23,6 +35,7 @@ const Navbar = () => {
 
         <div className="hidden lg:flex items-center text-sm gap-2 border border-gray-300 px-3 rounded-full">
           <input
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="py-1.5 w-full bg-transparent outline-none placeholder-gray-500"
             type="text"
             placeholder="Search products"
@@ -52,7 +65,8 @@ const Navbar = () => {
           </svg>
         </div>
 
-        <div   onClick={() => navigate("/cart")}
+        <div
+          onClick={() => navigate("/cart")}
           className="relative cursor-pointer"
         >
           <svg
@@ -83,14 +97,21 @@ const Navbar = () => {
               >
                 My Orders
               </li>
-              <li className="cursor-pointer p-1.5" onClick={() => setUser(null)}>
->
-                Logout
+              <li
+                className="cursor-pointer p-1.5"
+                onClick={() => setUser(null)}
+              >
+                > Logout
               </li>
             </ul>
           </div>
         ) : (
-          <button onClick={()=>{ setShowUserLogin(true)}} className="cursor-pointer px-6 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full text-sm" >
+          <button
+            onClick={() => {
+              setShowUserLogin(true);
+            }}
+            className="cursor-pointer px-6 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full text-sm"
+          >
             Login
           </button>
         )}
@@ -124,7 +145,7 @@ const Navbar = () => {
         <Link to={"/"}>Home</Link>
         <Link to={"/products"}>All Products</Link>
 
-         {user ? (
+        {user ? (
           <div className="relative group">
             <img src={assets.profile_icon} alt="" className="w-10" />
             <ul className="hidden group-hover:block absolute top-10 right-0 bg-white shadow border border-gray-200 py-2 w-30 rounded-md z-40 text-sm">
@@ -134,14 +155,16 @@ const Navbar = () => {
               >
                 My Orders
               </li>
-              <li className="cursor-pointer p-1.5" onClick={() => setUser(null)}>
->
-                Logout
+              <li
+                className="cursor-pointer p-1.5"
+                onClick={() => setUser(null)}
+              >
+                > Logout
               </li>
             </ul>
           </div>
-        ) : ( 
-          <button className="cursor-pointer px-6 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full text-sm" >
+        ) : (
+          <button className="cursor-pointer px-6 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full text-sm">
             Login
           </button>
         )}
