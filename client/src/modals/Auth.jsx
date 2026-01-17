@@ -1,20 +1,31 @@
 
 import { useState } from "react";
-import { useAppContext } from "../context/AppContext";
-//import { toast } from "react-hot-toast";
+import { useAppContext } from "../context/AppContext";import { toast } from "react-hot-toast";
 const Auth = () => {
   const [state, setState] = useState("login");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { setShowUserLogin , setUser} = useAppContext();
+  const { setShowUserLogin , setUser, axios, navigate}  = useAppContext();
 
-//const handleSubmit = async (e) => {
-//};
-const submitHandler = (e) => {
-  e.preventDefault();
-  console.log("name", name , "email", email , "password",password);
-  // Add your form submission logic here
+
+const submitHandler = async (e) => {
+   try {
+      e.preventDefault();
+      const { data } = await axios.post(`/api/user/${state}`, {
+        name,
+        email,
+        password,
+      });
+      if (data.success) {
+        toast.success(data.message);
+        navigate("/");
+        setUser(data.user);
+        setShowUserLogin(false);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {}
 }
 
   return (
@@ -87,11 +98,7 @@ onClick={() => setShowUserLogin(false)}
             </span>
           </p>
         )}
-        <button
-        onClick={() => {
-            setUser(true);
-            setShowUserLogin(false);
-        }}
+        <button             
         className="bg-indigo-500 hover:bg-indigo-600 transition-all text-white w-full py-2 rounded-md cursor-pointer">
           {state === "register" ? "Create Account" : "Login"}
         </button>
