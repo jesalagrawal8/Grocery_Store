@@ -22,6 +22,11 @@ app.use(express.json());
 app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(cookieParser());
 
+//Health check endpoint
+app.get("/", (req, res) => {
+  res.json({ success: true, message: "API is running" });
+});
+
 //Api Endpoints
 app.use("/images", express.static("uploads"));
 app.use("/api/user", userRoutes);
