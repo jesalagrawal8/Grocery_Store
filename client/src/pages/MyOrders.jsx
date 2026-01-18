@@ -41,6 +41,7 @@ const MyOrders = () => {
             <span>Total Amount : ${order.amount} </span>
           </p>
           {order.items.map((item, index) => (
+            item.product ? (
             <div
               key={index}
               className={`relative bg-white text-gray-800/70 ${
@@ -71,6 +72,7 @@ const MyOrders = () => {
                 Amount:${item.product.offerPrice * item.quantity}
               </p>
             </div>
+            ) : null
           ))}
         </div>
       ))}
