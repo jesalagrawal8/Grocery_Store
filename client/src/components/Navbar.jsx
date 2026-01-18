@@ -1,4 +1,4 @@
-import React, { useEffect , useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { assets } from "../assets/assets";
@@ -101,7 +101,7 @@ const Navbar = () => {
                 className="cursor-pointer p-1.5"
                 onClick={() => setUser(null)}
               >
-                > Logout
+                Logout
               </li>
             </ul>
           </div>
@@ -159,7 +159,7 @@ const Navbar = () => {
                 className="cursor-pointer p-1.5"
                 onClick={() => setUser(null)}
               >
-                > Logout
+                Logout
               </li>
             </ul>
           </div>
