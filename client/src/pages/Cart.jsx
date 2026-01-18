@@ -62,7 +62,7 @@ const Cart = () => {
     }
   }, [products, cartItems]);
 
-const placeOrder = async () => {
+  const placeOrder = async () => {
     try {
       if (!selectedAddress) {
         return toast.error("Please select an address");
@@ -111,7 +111,7 @@ const placeOrder = async () => {
               <div
                 onClick={() => {
                   navigate(
-                    `/product/${product.category.toLowerCase()}/${product._id}`
+                    `/product/${product.category.toLowerCase()}/${product._id}`,
                   );
                   scrollTo(0, 0);
                 }}
@@ -119,7 +119,7 @@ const placeOrder = async () => {
               >
                 <img
                   className="max-w-full h-full object-cover"
-                  src={`http://localhost:5000/images/${product.image[0]}`}
+                  src={`${import.meta.env.VITE_BACKEND_URL}/images/${product.image[0]}`}
                   alt={product.name}
                 />
               </div>
@@ -139,7 +139,7 @@ const placeOrder = async () => {
                       className="outline-none"
                     >
                       {Array(
-                        cartItems[product._id] > 9 ? cartItems[product._id] : 9
+                        cartItems[product._id] > 9 ? cartItems[product._id] : 9,
                       )
                         .fill("")
                         .map((_, index) => (

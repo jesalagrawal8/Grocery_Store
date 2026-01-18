@@ -4,22 +4,20 @@ import { Link, useParams } from "react-router-dom";
 import { assets } from "../assets/assets";
 import ProductCard from "../components/ProductCard";
 
-
 const ProductDetails = () => {
-  
   const { products, navigate, addToCart } = useAppContext();
   const { id } = useParams();
   const [thumbnail, setThumbnail] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
 
   const product = products.find((product) => product._id === id);
-  
+
   console.log("product", product);
   useEffect(() => {
     if (products.length > 0) {
       let productsCopy = products.slice();
       productsCopy = productsCopy.filter(
-        (product) => product.category === product.category
+        (product) => product.category === product.category,
       );
       setRelatedProducts(productsCopy.slice(0, 5));
     }
@@ -51,7 +49,7 @@ const ProductDetails = () => {
                   className="border max-w-24 border-gray-500/30 rounded overflow-hidden cursor-pointer"
                 >
                   <img
-                    src={`http://localhost:5000/images/${image}`}
+                    src={`${import.meta.env.VITE_BACKEND_URL}/images/${image}`}
                     alt={`Thumbnail ${index + 1}`}
                   />
                 </div>
@@ -60,7 +58,7 @@ const ProductDetails = () => {
 
             <div className="border border-gray-500/30 max-w-100 rounded overflow-hidden">
               <img
-                src={`http://localhost:5000/images/${thumbnail}`}
+                src={`${import.meta.env.VITE_BACKEND_URL}/images/${thumbnail}`}
                 alt="Selected product"
               />
             </div>
@@ -82,13 +80,13 @@ const ProductDetails = () => {
                         key={i}
                         className="w-3.5 md:w-4"
                       />
-                    )
+                    ),
                 )}
               <p className="text-base ml-2">(4)</p>
             </div>
 
             <div className="mt-6">
-               <p className="text-gray-500/70 line-through">
+              <p className="text-gray-500/70 line-through">
                 MRP: ${product.price}
               </p>
               <p className="text-2xl font-medium">MRP: ${product.offerPrice}</p>

@@ -3,7 +3,7 @@ import { AppContext, useAppContext } from "../../context/AppContext";
 import { assets, dummyOrders } from "../../assets/assets";
 import toast from "react-hot-toast";
 
-const Orders = () => { 
+const Orders = () => {
   const boxIcon =
     "https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/e-commerce/boxIcon.svg";
 
@@ -25,7 +25,6 @@ const Orders = () => {
     fetchOrders();
   }, []);
 
-
   return (
     <div className="md:p-10 p-4 space-y-4">
       <h2 className="text-lg font-medium">Orders List</h2>
@@ -37,7 +36,7 @@ const Orders = () => {
           <div className="flex gap-5">
             <img
               className="w-12 h-12 object-cover opacity-60"
-              src={`http://localhost:5000/images/${order.items[0].product.image[0]}`}
+              src={`${import.meta.env.VITE_BACKEND_URL}/images/${order.items[0].product.image[0]}`}
               alt="boxIcon"
             />
             <>

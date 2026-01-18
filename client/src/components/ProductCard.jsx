@@ -1,4 +1,3 @@
-
 import { assets } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
 
@@ -9,7 +8,7 @@ const ProductCard = ({ product }) => {
       <div
         onClick={() => {
           navigate(
-            `/product/${product.category.toLowerCase()}/${product?._id}`
+            `/product/${product.category.toLowerCase()}/${product?._id}`,
           );
           scrollTo(0, 0);
         }}
@@ -18,7 +17,7 @@ const ProductCard = ({ product }) => {
         <div className="group cursor-pointer flex items-center justify-center px-2">
           <img
             className="group-hover:scale-105 transition max-w-26 md:max-w-36"
-            src={`http://localhost:5000/images/${product.image[0]}`}
+            src={`${import.meta.env.VITE_BACKEND_URL}/images/${product.image[0]}`}
             alt={product.name}
           />
         </div>
