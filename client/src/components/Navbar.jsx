@@ -115,7 +115,15 @@ const Navbar = () => {
             Login
           </button>
         )}
+         <Link to={"/seller"}>
+        <button
+            className="cursor-pointer px-6 py-2 bg-indigo-500 hover:bg-indigo-600 transition text-white rounded-full text-sm"
+          >
+            Admin
+          </button>
+      </Link>
       </div>
+     
 
       <button
         onClick={() => (open ? setOpen(false) : setOpen(true))}

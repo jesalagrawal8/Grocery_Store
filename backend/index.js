@@ -16,6 +16,7 @@ const app = express();
 connectDB();
 connectCloudinary();
 const allowedOrigins = [process.env.FRONTEND_URL];
+console.log("allowedOrigins:", allowedOrigins)
 
 //middlewares
 app.use(express.json());
