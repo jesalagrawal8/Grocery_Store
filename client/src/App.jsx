@@ -20,6 +20,7 @@ import ProductList from "./pages/seller/ProductList";
 import Orders from "./pages/seller/Orders";
 
 import { AppContext } from "./context/AppContext";
+import Loading from "./components/Loading";
 
 const App = () => {
   const location = useLocation();
@@ -44,6 +45,7 @@ const App = () => {
           <Route path="/cart" element={<Cart />} />
           <Route path="/my-orders" element={<MyOrders />} />
           <Route path="/add-address" element={<AddAddress />} />
+          <Route path="/loader" element={<Loading />} />
 
           {/* SELLER ROUTES */}
           <Route

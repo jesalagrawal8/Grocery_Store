@@ -83,6 +83,18 @@ const Cart = () => {
         } else {
           toast.error(data.message);
         }
+      }else{
+        // place order with stripe  
+         const { data } = await axios.post("/api/order/stripe", {
+          items: cartArray.map((item) => ({
+            product: item._id,
+            quantity: item.quantity,
+          })),
+          address: selectedAddress._id,
+        });
+        if (data.success) {
+          window.location.replace(data.url);
+        }
       }
     } catch (error) {
       toast.error(error.message);
@@ -153,7 +165,7 @@ const Cart = () => {
               </div>
             </div>
             <p className="text-center">
-              ₹{product.offerPrice * product.quantity}
+              ${product.offerPrice * product.quantity}
             </p>
             <button
               onClick={() => removeFromCart(product._id)}
@@ -263,7 +275,7 @@ const Cart = () => {
         <div className="text-gray-500 mt-4 space-y-2">
           <p className="flex justify-between">
             <span>Price</span>
-            <span>₹{totalCartAmount()}</span>
+            <span>${totalCartAmount()}</span>
           </p>
           <p className="flex justify-between">
             <span>Shipping Fee</span>
@@ -271,11 +283,11 @@ const Cart = () => {
           </p>
           <p className="flex justify-between">
             <span>Tax (2%)</span>
-            <span>₹{(totalCartAmount() * 2) / 100}</span>
+            <span>${(totalCartAmount() * 2) / 100}</span>
           </p>
           <p className="flex justify-between text-lg font-medium mt-3">
             <span>Total Amount:</span>
-            <span>₹{totalCartAmount() + (totalCartAmount() * 2) / 100} </span>
+            <span>${totalCartAmount() + (totalCartAmount() * 2) / 100} </span>
           </p>
         </div>
 
