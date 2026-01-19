@@ -39,7 +39,7 @@ const ProductList = () => {
                   <td className="md:px-4 pl-2 md:pl-4 py-3 flex items-center space-x-3 truncate">
                     <div className="border border-gray-300 rounded p-2">
                       <img
-                        src={`${import.meta.env.VITE_BACKEND_URL}/images/${product.image[0]}`}
+                        src={getImageUrl(product.image[0])}
                         alt="Product"
                         className="w-16"
                       />

@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AppContext, useAppContext } from "../../context/AppContext";
 import { assets, dummyOrders } from "../../assets/assets";
 import toast from "react-hot-toast";
+import { getImageUrl } from "../../utils/imageHelper";
 
 const Orders = () => {
   const boxIcon =
@@ -37,7 +38,7 @@ const Orders = () => {
           <div className="flex gap-5">
             <img
               className="w-12 h-12 object-cover opacity-60"
-              src={`${import.meta.env.VITE_BACKEND_URL}/images/${order.items[0].product.image[0]}`}
+              src={getImageUrl(order.items[0].product.image[0])}
               alt="boxIcon"
             />
             <>

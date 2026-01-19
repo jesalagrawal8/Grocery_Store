@@ -1,5 +1,6 @@
 import { assets } from "../assets/assets";
 import { useAppContext } from "../context/AppContext";
+import { getImageUrl } from "../utils/imageHelper";
 
 const ProductCard = ({ product }) => {
   const { addToCart, removeFromCart, cartItems, navigate } = useAppContext();
@@ -17,7 +18,7 @@ const ProductCard = ({ product }) => {
         <div className="group cursor-pointer flex items-center justify-center px-2">
           <img
             className="group-hover:scale-105 transition max-w-26 md:max-w-36"
-            src={`${import.meta.env.VITE_BACKEND_URL}/images/${product.image[0]}`}
+            src={getImageUrl(product.image[0])}
             alt={product.name}
           />
         </div>
