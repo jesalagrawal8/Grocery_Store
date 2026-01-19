@@ -5,20 +5,40 @@ import { v2 as cloudinary } from "cloudinary";
 export const addProduct = async (req, res) => {
   try {
     const { name, description, price, offerPrice, category } = req.body;
-    const image = req.files?.map((file) => file.filename);
+    const files = req.files;
+
     if (
       !name ||
       !price ||
       !offerPrice ||
       !description ||
       !category ||
-      !image ||
-      image.length === 0
+      !files ||
+      files.length === 0
     ) {
       return res.status(400).json({
         success: false,
         message: "All fields including images are required",
       });
+    }
+
+    // Upload images to Cloudinary
+    const imageUrls = [];
+    for (const file of files) {
+      const result = await new Promise((resolve, reject) => {
+        const uploadStream = cloudinary.uploader.upload_stream(
+          {
+            folder: "grocery-products",
+            resource_type: "image",
+          },
+          (error, result) => {
+            if (error) reject(error);
+            else resolve(result);
+          },
+        );
+        uploadStream.end(file.buffer);
+      });
+      imageUrls.push(result.secure_url);
     }
 
     await Product.create({
@@ -27,9 +47,11 @@ export const addProduct = async (req, res) => {
       price,
       offerPrice,
       category,
-      image,
+      image: imageUrls,
     });
-    res.status(201).json({ message: "Product added successfully", success: true });
+    res
+      .status(201)
+      .json({ message: "Product added successfully", success: true });
   } catch (error) {
     res.status(500).json({ message: "Server Error", error: error.message });
   }
@@ -66,7 +88,7 @@ export const changeStock = async (req, res) => {
     const product = await Product.findByIdAndUpdate(
       id,
       { inStock },
-      { new: true }
+      { new: true },
     );
     res
       .status(200)

@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { assets } from "../../assets/assets";
 import { useAppContext } from "../../context/AppContext";
 import toast from "react-hot-toast";
 
 const SellerLayout = () => {
-   const { isSeller, setIsSeller, axios, navigate } = useAppContext();
+  const { isSeller, setIsSeller, axios, navigate } = useAppContext();
   const sidebarLinks = [
     { name: "Add Product", path: "/seller", icon: assets.add_icon },
     {
@@ -29,10 +29,10 @@ const SellerLayout = () => {
     }
   };
   return (
- <>
+    <>
       <div className="flex items-center justify-between px-4 md:px-8 border-b border-gray-300 py-3 bg-white transition-all duration-300">
         <Link to={"/"}>
-          <h1 className="text-2xl font-semibold">Grocery Store App</h1>
+          <h1 className="text-2xl font-semibold">FreshCart</h1>
         </Link>
         <div className="flex items-center gap-5 text-gray-500">
           <p>Hi! Admin</p>
@@ -68,7 +68,8 @@ const SellerLayout = () => {
         </div>
         <Outlet />
       </div>
-    </>  )
-}
+    </>
+  );
+};
 
-export default SellerLayout
+export default SellerLayout;
