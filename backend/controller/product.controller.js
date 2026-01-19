@@ -22,6 +22,12 @@ export const addProduct = async (req, res) => {
       });
     }
 
+    // Convert description to array by splitting on newlines
+    const descriptionArray = description
+      .split('\n')
+      .map(line => line.trim())
+      .filter(line => line.length > 0);
+
     // Upload images to Cloudinary
     const imageUrls = [];
     for (const file of files) {
@@ -43,7 +49,7 @@ export const addProduct = async (req, res) => {
 
     await Product.create({
       name,
-      description,
+      description: descriptionArray,
       price,
       offerPrice,
       category,
