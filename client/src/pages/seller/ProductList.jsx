@@ -1,5 +1,6 @@
 import toast from "react-hot-toast";
 import { useAppContext } from "../../context/AppContext";
+import { getImageUrl } from "../../utils/imageHelper";
 
 const ProductList = () => {
   const { products, fetchProducts, axios } = useAppContext();
@@ -50,7 +51,7 @@ const ProductList = () => {
                   </td>
                   <td className="px-4 py-3">{product.category}</td>
                   <td className="px-4 py-3 max-sm:hidden">
-                     ${product.offerPrice}
+                    ${product.offerPrice}
                   </td>
                   <td className="px-4 py-3">
                     <label className="relative inline-flex items-center cursor-pointer text-gray-900 gap-3">
